@@ -3,7 +3,7 @@ import { json } from "@remix-run/node";
 import { Link, Outlet, useLoaderData } from "@remix-run/react";
 
 import stylesUrl from "~/styles/jokes.css";
-import { db } from "~/utils/db.server";
+import { dbSqlite } from "~/utils/sqlite/db.server";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: stylesUrl }];
@@ -11,7 +11,7 @@ export const links: LinksFunction = () => {
 
 export const loader = async () => {
   return json({
-    jokeListItems: await db.joke.findMany({
+    jokeListItems: await dbSqlite.joke.findMany({
       take: 5,
       select: { id: true, name: true },
       orderBy: { createdAt: "desc" },

@@ -1,6 +1,6 @@
 import type { ActionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import { db } from "~/utils/db.server";
+import { dbSqlite } from "~/utils/sqlite/db.server";
 
 export async function action({ request }: ActionArgs) {
   const body = await request.formData();
@@ -9,7 +9,7 @@ export async function action({ request }: ActionArgs) {
     content: body.get("content"),
   };
 
-  const jokeSaved = await db.joke.create({
+  const jokeSaved = await dbSqlite.joke.create({
     data: newJoke,
   });
 

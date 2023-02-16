@@ -1,10 +1,10 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
-import { db } from "~/utils/db.server";
+import { dbSqlite } from "~/utils/sqlite/db.server";
 
 export const loader = async ({ params }: LoaderArgs) => {
-  const joke = await db.joke.findUnique({
+  const joke = await dbSqlite.joke.findUnique({
     where: { id: params.jokeId },
   });
 

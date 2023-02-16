@@ -3,7 +3,7 @@ import { json } from "@remix-run/node";
 import { Link, Outlet, useLoaderData } from "@remix-run/react";
 
 import stylesUrl from "~/styles/jokes.css";
-import { db } from "~/utils/db.server";
+import { dbMySql } from "~/utils/mysql/db.server";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: stylesUrl }];
@@ -11,12 +11,17 @@ export const links: LinksFunction = () => {
 
 export const loader = async () => {
   return json({
-    jokeListItems: await db.joke.findMany({
-      take: 5,
-      select: { id: true, name: true },
-      orderBy: { createdAt: "desc" },
+    jokeListItems: await dbMySql.film.findMany({
+      orderBy: { release_year: "desc" },
     }),
   });
+  //   return json({
+  //     jokeListItems: await db.joke.findMany({
+  //       take: 5,
+  //       select: { id: true, name: true },
+  //       orderBy: { createdAt: "desc" },
+  //     }),
+  //   });
 };
 
 export default function JokesRoute() {
@@ -40,8 +45,8 @@ export default function JokesRoute() {
             <p>Film List!</p>
             <ul>
               {data.jokeListItems.map((joke) => (
-                <li key={joke.id}>
-                  <Link to={joke.id}>{joke.name}</Link>
+                <li key={joke.film_id}>
+                  <Link to={joke.title}>{joke.title}</Link>
                 </li>
               ))}
             </ul>
