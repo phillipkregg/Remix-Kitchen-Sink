@@ -23,6 +23,9 @@ const IndexRoute = () => {
             <li>
               <Link to="jokes">Read Jokes</Link>
             </li>
+            <li>
+              <Link to="films">... or checkout films!</Link>
+            </li>
           </ul>
         </nav>
       </div>
