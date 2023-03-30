@@ -34,14 +34,14 @@ export default function JokesRoute() {
               </h1>
             </div>
           </header>
-          <main className="p-10">
+          <main className="px-10">
             <div className="">
               <div className="">
                 <h2 className="text-3xl text-gray-600">Film List!</h2>
 
                 {data.films.map((film) => (
                   <div
-                    className="px-4 py-2 mt-8 duration-200 ease-in-out bg-gray-400 shadow-md hover:shadow-xl shadow-slate-800 hover:shadow-slate-800 hover:bg-gray-500"
+                    className="px-4 py-2 mt-8 duration-200 ease-in-out bg-gray-400 shadow-md hover:shadow-xl shadow-slate-800 hover:shadow-slate-800 hover:bg-gray-500 hover:cursor-pointer"
                     key={film.film_id}
                   >
                     <h3 className="mb-2 text-2xl">{film.title}</h3>
