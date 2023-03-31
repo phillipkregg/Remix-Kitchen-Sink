@@ -1,19 +1,21 @@
 import type { ActionArgs } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 import { dbSqlite } from "~/utils/sqlite/db.server";
 
 export async function action({ request }: ActionArgs) {
-  const body = await request.formData();
-  const newJoke = {
-    name: body.get("content"),
-    content: body.get("content"),
-  };
+  const form = await request.formData();
+  const name = form.get("name");
+  const content = form.get("content");
+  // we do this type check to be extra sure and to make TypeScript happy
+  // we'll explore validation next!
+  if (typeof name !== "string" || typeof content !== "string") {
+    throw new Error(`Form not submitted correctly.`);
+  }
 
-  const jokeSaved = await dbSqlite.joke.create({
-    data: newJoke,
-  });
+  const fields = { name, content };
 
-  return redirect(`/jokes/${jokeSaved.id}`);
+  const joke = await dbSqlite.joke.create({ data: fields });
+  return redirect(`/jokes/${joke.id}`);
 }
 
 const JokesNewRoute = () => {
