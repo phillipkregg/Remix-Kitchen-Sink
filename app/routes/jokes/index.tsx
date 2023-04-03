@@ -1,6 +1,6 @@
 import type { LoaderArgs } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
 import { json } from "@remix-run/node";
+import { Link, useLoaderData } from "@remix-run/react";
 import { dbSqlite } from "~/utils/sqlite/db.server";
 
 export const loader = async ({ params }: LoaderArgs) => {
@@ -10,8 +10,6 @@ export const loader = async ({ params }: LoaderArgs) => {
     take: 1,
     skip: randomRowNumber,
   });
-
-  console.log(randomJoke);
 
   return json({ randomJoke });
 };

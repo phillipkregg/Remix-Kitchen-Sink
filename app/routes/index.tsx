@@ -1,6 +1,6 @@
-import styles from "../styles/index.css";
 import type { LinksFunction } from "@remix-run/node";
 import { Link } from "react-router-dom";
+import styles from "../styles/index.css";
 
 export const links: LinksFunction = () => {
   return [
@@ -25,6 +25,9 @@ const IndexRoute = () => {
             </li>
             <li>
               <Link to="films">... or checkout films!</Link>
+            </li>
+            <li>
+              <Link to="msw-test">Mock Service Worker</Link>
             </li>
           </ul>
         </nav>
