@@ -1,8 +1,13 @@
 module.exports = {
-  content: ["./app/**/*.{ts,tsx,jsx,js}"], //paths added to config
+  content: [
+    "./app/**/*.{ts,tsx,jsx,js}",
+    'node_modules/preline/dist/*.js',
+  ],
   theme: {
     extend: {},
   },
   variants: {},
-  plugins: [],
+  plugins: [
+    require('preline/plugin'),
+  ],
 };

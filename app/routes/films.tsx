@@ -1,39 +1,27 @@
-import { json } from "@remix-run/node";
-import { Link, Outlet, useLoaderData } from "@remix-run/react";
-import { LiveReload } from "@remix-run/react";
+import { json } from '@remix-run/node'
+import { LiveReload, Outlet, useLoaderData } from '@remix-run/react'
+import type { Film } from '~/types/Film'
 
-import { dbMySql } from "~/utils/mysql/db.server";
+import { dbMySql } from '~/utils/mysql/db.server'
 
 export const loader = async () => {
-  return json({
-    films: await dbMySql.film.findMany({
-      orderBy: { release_year: "desc" },
-    }),
-  });
-};
+  const films: Film[] = await dbMySql.film.findMany({
+    orderBy: { release_year: 'desc' },
+  })
+  return json({ films })
+}
 
 export default function JokesRoute() {
-  const data = useLoaderData<typeof loader>();
+  const data = useLoaderData<typeof loader>()
 
   return (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
-        <title>Remix: So great, it's funny!</title>
+        <title>MySql Prisma Client</title>
       </head>
-      <body className="bg-gray-100">
+      <body>
         <div className="">
-          <header className="px-10 py-5">
-            <div className="">
-              <h1 className="home-link">
-                <Link to="/" title="Remix Jokes" aria-label="Remix Jokes">
-                  <span className="text-gray-600 logo-medium">
-                    {"<-"} back to the J🤪KES
-                  </span>
-                </Link>
-              </h1>
-            </div>
-          </header>
           <main className="px-10">
             <div className="">
               <div className="">
@@ -58,5 +46,5 @@ export default function JokesRoute() {
         <LiveReload />
       </body>
     </html>
-  );
+  )
 }

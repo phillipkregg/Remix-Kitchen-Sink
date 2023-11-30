@@ -1,28 +1,28 @@
-import { json, type LinksFunction } from "@remix-run/node";
-import { Link, Outlet, useLoaderData } from "@remix-run/react";
+import { json, type LinksFunction } from '@remix-run/node'
+import { Link, Outlet, useLoaderData } from '@remix-run/react'
 
-import stylesUrl from "~/styles/jokes.css";
-import { dbSqlite } from "~/utils/sqlite/db.server";
+import stylesUrl from '~/styles/jokes.css'
+import { dbSqlite } from '~/utils/sqlite/db.server'
 
 export const links: LinksFunction = () => {
-  return [{ rel: "stylesheet", href: stylesUrl }];
-};
+  return [{ rel: 'stylesheet', href: stylesUrl }]
+}
 
 export const loader = async () => {
   return json({
     jokeListItems: await dbSqlite.joke.findMany({
       take: 5,
       select: { id: true, name: true },
-      orderBy: { createdAt: "desc" },
+      orderBy: { createdAt: 'desc' },
     }),
-  });
-};
+  })
+}
 
 export default function JokesRoute() {
-  const data = useLoaderData<typeof loader>();
+  const data = useLoaderData<typeof loader>()
 
   return (
-    <div className="jokes-layout">
+    <div className="bg-blue-900 jokes-layout">
       <header className="jokes-header">
         <div className="container">
           <h1 className="home-link">
@@ -55,5 +55,5 @@ export default function JokesRoute() {
         </div>
       </main>
     </div>
-  );
+  )
 }
